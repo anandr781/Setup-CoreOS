@@ -1,4 +1,3 @@
-    
 #cloud-config
 
   # storage:
@@ -9,7 +8,7 @@
   #       contents:
   #         remote:
   #           url: "https://raw.githubusercontent.com/anandr781/Kube-CoreOS/master/bootstrap-coreos.sh"
-
+  
 hostname: "CoreOS-I"
 manage_etc_hosts: "CoreOS-I"
 
@@ -34,7 +33,8 @@ coreos:
         
      #rpc-statd.service is a necessary dependency for NFS client service (docker-vol-data.mount) to work   
       - name: rpc-statd.service
-        command: start  
+        command: start
+        
       - name: docker-vol-data.mount
         command: start
         content: | 
@@ -47,7 +47,8 @@ coreos:
      #start only docker and docker-socket
       - name: docker.service
         enable: true
-      
+        command: start
+
       - name: docker-tcp.socket
         enable: true
         content: |
@@ -71,8 +72,8 @@ coreos:
                isns.address = 192.168.10.103
                isns.port = 3260
                # node.session.auth.username = my_username
-               # node.session.auth.password = my_secret_password
                # discovery.sendtargets.auth.username = my_username
+               # node.session.auth.password = my_secret_password
                # discovery.sendtargets.auth.password = my_secret_password
 
       - name: settimezone.service
