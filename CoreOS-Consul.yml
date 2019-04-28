@@ -8,7 +8,7 @@
   #       contents:
   #         remote:
   #           url: "https://raw.githubusercontent.com/anandr781/Kube-CoreOS/master/bootstrap-coreos.sh"
-   
+	   
 # hostname: "CoreOS-I"
 # manage_etc_hosts: "CoreOS-I"
 
@@ -25,17 +25,17 @@ passwd:
 systemd:
     units:
       - name: etcd-member.service
-        command: stop
+        enable: false
 
       - name: etcd.service
-        command: stop
+        enable: false
         mask: true
         
      #rpc-statd.service is a necessary dependency for NFS client service (docker-vol-data.mount) to work   
       - name: rpc-statd.service
-        command: start  
+        enable: start  
       - name: docker-vol-data.mount
-        command: start
+        enable: start
         contents: | 
            [Mount]
            What=192.168.10.103:/mnt/SATA500GB-V1/SecondaryStorage1-NFS/CoreOS-I
@@ -46,7 +46,6 @@ systemd:
      #start only docker and docker-socket
       - name: docker.service
         enable: true
-        command: start
 
       - name: docker-tcp.socket
         enable: true
@@ -62,7 +61,6 @@ systemd:
 
       - name: iscsid.service
         enable: true
-        command: "start"
         write_files:
            - path: "/etc/iscsi/iscsid.conf"
              permissions: "0644"
@@ -76,7 +74,7 @@ systemd:
                # discovery.sendtargets.auth.password = my_secret_password
 
       - name: settimezone.service
-        command: start
+        enable: true
         contents: |
            [Unit]
            Description=Set the time zone
@@ -87,10 +85,9 @@ systemd:
            Type=oneshot        
 
       - name: systemd-timesyncd.service
-        command: stop
+        enable: false
         mask: true
       - name: ntpd.service
-        command: start
         enable: true        
         write_files:
           - path: /etc/ntp.conf
