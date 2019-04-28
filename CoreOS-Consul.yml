@@ -8,7 +8,6 @@
   #       contents:
   #         remote:
   #           url: "https://raw.githubusercontent.com/anandr781/Kube-CoreOS/master/bootstrap-coreos.sh"
-
 # hostname: "CoreOS-I"
 # manage_etc_hosts: "CoreOS-I"
 
@@ -42,7 +41,8 @@ systemd:
            Where=/var/lib
            Type=nfs
            Options=vers=4,sec=sys,noauto 
-
+           [Install]
+           WantedBy=multi-user.target
      #start only docker and docker-socket
       - name: docker.service
         enable: true
@@ -61,14 +61,3 @@ systemd:
 
       - name: iscsid.service
         enable: true
-        write_files:
-           - path: "/etc/iscsi/iscsid.conf"
-             permissions: "0644"
-             owner: "root"
-             contents: |
-               isns.address = 192.168.10.103
-               isns.port = 3260
-               # node.session.auth.username = my_username
-               # discovery.sendtargets.auth.username = my_username
-               # node.session.auth.password = my_secret_password
-               # discovery.sendtargets.auth.password = my_secret_password
