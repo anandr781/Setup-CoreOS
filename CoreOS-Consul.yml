@@ -9,7 +9,7 @@
   #       contents:
   #         remote:
   #           url: "https://raw.githubusercontent.com/anandr781/Kube-CoreOS/master/bootstrap-coreos.sh"
-   
+	   
 hostname: "CoreOS-I"
 manage_etc_hosts: "CoreOS-I"
 
@@ -47,15 +47,6 @@ coreos:
      #start only docker and docker-socket
       - name: docker.service
         enable: true
-        dropins:
-          - name: 60-docker-dependencies.conf
-             content: |
-               [Unit]
-               Description = Docker Service for the host
-               After=network.service
- 
-               [Service]
-               Restart=always
       
       - name: docker-tcp.socket
         enable: true
