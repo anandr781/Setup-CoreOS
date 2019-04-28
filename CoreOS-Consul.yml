@@ -9,7 +9,7 @@
   #       contents:
   #         remote:
   #           url: "https://raw.githubusercontent.com/anandr781/Kube-CoreOS/master/bootstrap-coreos.sh"
-	   
+
 hostname: "CoreOS-I"
 manage_etc_hosts: "CoreOS-I"
 
