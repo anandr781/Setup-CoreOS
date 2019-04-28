@@ -8,7 +8,7 @@
   #       contents:
   #         remote:
   #           url: "https://raw.githubusercontent.com/anandr781/Kube-CoreOS/master/bootstrap-coreos.sh"
-	   
+
 # hostname: "CoreOS-I"
 # manage_etc_hosts: "CoreOS-I"
 
@@ -33,9 +33,9 @@ systemd:
         
      #rpc-statd.service is a necessary dependency for NFS client service (docker-vol-data.mount) to work   
       - name: rpc-statd.service
-        enable: start  
+        enable: true  
       - name: docker-vol-data.mount
-        enable: start
+        enable: true
         contents: | 
            [Mount]
            What=192.168.10.103:/mnt/SATA500GB-V1/SecondaryStorage1-NFS/CoreOS-I
@@ -72,5 +72,3 @@ systemd:
                # discovery.sendtargets.auth.username = my_username
                # node.session.auth.password = my_secret_password
                # discovery.sendtargets.auth.password = my_secret_password
-
-
