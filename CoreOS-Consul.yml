@@ -35,7 +35,7 @@ systemd:
      #rpc-statd.service is a necessary dependency for NFS client service (docker-vol-data.mount) to work   
       - name: rpc-statd.service
         enable: true  
-      - name: var-lib-docker.mount
+      - name: mnt-nfsShare.mount
         enable: true
         contents: | 
            [Unit]
@@ -43,7 +43,7 @@ systemd:
            Before=remote-fs.target
            [Mount]
            What=192.168.10.103:/mnt/SATA500GB-V1/SecondaryStorage1-NFS/CoreOS-I
-           Where=/var/lib/docker
+           Where=/mnt/nfsShare
            Type=nfs
            Options=defaults
            [Install]
@@ -52,12 +52,12 @@ systemd:
      #start only docker and docker-socket
       - name: docker.service
         enable: true
-        dropins:
-         - name: 10-wait-docker.conf
-           contents: |
-             [Unit]
-             After=var-lib-docker.mount
-             Requires=var-lib-docker.mount
+        # dropins:
+        #  - name: 10-wait-docker.conf
+          #  contents: |
+          #    [Unit]
+          #    After=var-lib-docker.mount
+          #    Requires=var-lib-docker.mount
       - name: docker-tcp.socket
         enable: true
         contents: |
@@ -80,5 +80,5 @@ networkd:
           Name=eth1
 
           [Network]
-          Address=192.168.10.105/24
+          Address=192.168.10.101/24
           Gateway=192.168.10.1
