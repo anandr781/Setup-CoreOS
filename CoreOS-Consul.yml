@@ -45,7 +45,7 @@ systemd:
            What=192.168.10.103:/mnt/SATA500GB-V1/SecondaryStorage1-NFS/CoreOS-I
            Where=/var/lib/docker
            Type=nfs
-           Options=vers=3,sec=rw,sys,noauto 
+           Options=defaults
            [Install]
            WantedBy=remote-fs.target
 
