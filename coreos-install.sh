@@ -7,5 +7,6 @@ chmod a+x ct
  
 wget  https://raw.githubusercontent.com/anandr781/Setup-CoreOS/master/CoreOS-Consul.yml
 ./ct --in-file=CoreOS-Consul.yml --out-file=ignition
-
-sudo coreos-install -d $device_var   -i ignition -C stable
+echo "Shall we continue with CoreOS install ?"
+read
+sudo coreos-install -d $device_var   -i ignition 
