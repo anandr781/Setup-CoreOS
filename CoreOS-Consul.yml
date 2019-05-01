@@ -29,20 +29,23 @@ systemd:
       - name: etcd.service
         enable: false
         mask: true
+
+     
         
      #rpc-statd.service is a necessary dependency for NFS client service (docker-vol-data.mount) to work   
-      - name: rpc-statd.service
-        enable: true  
-      - name: docker-vol-data.mount
-        enable: true
-        contents: | 
-           [Mount]
-           What=192.168.10.103:/mnt/SATA500GB-V1/SecondaryStorage1-NFS/CoreOS-I
-           Where=/var/lib
-           Type=nfs
-           Options=vers=4,sec=sys,noauto 
-           [Install]
-           WantedBy=multi-user.target
+      # - name: rpc-statd.service
+      #   enable: true  
+      # - name: docker-vol-data.mount
+      #   enable: true
+      #   contents: | 
+      #      [Mount]
+      #      What=192.168.10.103:/mnt/SATA500GB-V1/SecondaryStorage1-NFS/CoreOS-I
+      #      Where=/var/lib
+      #      Type=nfs
+      #      Options=vers=4,sec=sys,noauto 
+      #      [Install]
+      #      WantedBy=multi-user.target
+
      #start only docker and docker-socket
       - name: docker.service
         enable: true
@@ -61,3 +64,14 @@ systemd:
 
       - name: iscsid.service
         enable: true
+
+        networkd:
+  units:
+    - name: static.network
+      contents: |
+        [Match]
+        Name=eth1
+
+        [Network]
+        Address=192.168.10.105/24
+        Gateway=192.168.10.1
