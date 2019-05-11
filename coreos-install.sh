@@ -5,7 +5,7 @@ wget https://github.com/coreos/container-linux-config-transpiler/releases/downlo
 mv ct-v0.9.0-x86_64-unknown-linux-gnu ct
 chmod a+x ct
  
-wget  https://raw.githubusercontent.com/anandr781/Setup-CoreOS/master/CoreOS-Consul.yml
+wget  https://raw.githubusercontent.com/anandr781/Setup-CoreOS/master/CoreOS-CloudConfig.yml
 ./ct --in-file=CoreOS-Consul.yml --out-file=ignition
 echo "Shall we continue with CoreOS install ?"
 read
